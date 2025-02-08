@@ -18,7 +18,7 @@
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <div class="bg-white p-5 rounded-lg shadow-lg w-50 border border-gray-200">
             <h2 class="text-center text-3xl font-bold text-[#2C2C2C]">SignUp</h2>
-            <form action="/register" method="POST">
+            <form action="SignIn.html" method="POST" id="signup-form" onsubmit="registerUser(event)">
                 <div class="mb-3">
                     <label class="form-label text-[#2C2C2C]">Full Name</label>
                     <input type="text" class="form-control border-gray-300" name="fullname" required>
@@ -47,6 +47,27 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function registerUser(event) {
+            event.preventDefault(); // Prevent form submission to continue to SignIn page
+            
+            // Simulate successful registration logic
+            const formData = new FormData(event.target);
+            const fullname = formData.get("fullname");
+            const email = formData.get("email");
+            const password = formData.get("password");
+
+            // Store the user info in localStorage (you can modify this logic as needed)
+            localStorage.setItem("isRegistered", "true");
+            localStorage.setItem("userEmail", email);
+
+            // You can store more information here as needed (e.g., full name, etc.)
+
+            // Optionally, you could redirect to the SignIn page here, simulating a flow to log in
+            window.location.href = "SignIn.html"; // Redirect to SignIn page
+        }
+    </script>
 </body>
 
 </html>

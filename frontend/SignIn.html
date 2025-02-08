@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - SmartCity Complaint Hub</title>
 
-    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
@@ -18,7 +18,7 @@
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <div class="bg-white p-5 rounded-lg shadow-lg w-50 border border-gray-200">
             <h2 class="text-center text-3xl font-bold text-[#2C2C2C]">SignIn</h2>
-            <form action="/login" method="POST">
+            <form action="javascript:void(0)" method="POST" id="login-form" onsubmit="loginUser(event)">
                 <div class="mb-3">
                     <label class="form-label text-[#2C2C2C]">Email</label>
                     <input type="email" class="form-control border-gray-300" name="email" required>
@@ -39,6 +39,33 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function loginUser(event) {
+            event.preventDefault(); // Prevent form from submitting normally
+
+            // Get form data
+            const formData = new FormData(event.target);
+            const email = formData.get("email");
+            const password = formData.get("password");
+
+            // Retrieve stored registration data from localStorage
+            const isRegistered = localStorage.getItem("isRegistered");
+            const storedEmail = localStorage.getItem("userEmail");
+            const storedPassword = localStorage.getItem("userPassword");  // Store the password during registration
+
+            // Check if the user is registered and the credentials match
+            if (isRegistered === "true" && email === storedEmail && password === storedPassword) {
+                // Set the logged-in flag in localStorage
+                localStorage.setItem("isLoggedIn", "true");
+
+                // Redirect to Dashboard
+                window.location.href = "dashboard.html"; // Redirect to your Dashboard page
+            } else {
+                alert("Invalid credentials or user not registered.");
+            }
+        }
+    </script>
 </body>
 
 </html>
