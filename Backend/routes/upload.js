@@ -3,47 +3,46 @@ const multer = require("multer");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const cloudinary = require("cloudinary").v2;
 const dotenv = require("dotenv");
+const mongoose = require("mongoose");
+const Image = require("../models/Image"); // Import model
 
 dotenv.config();
 const router = express.Router();
 
-// Configure Cloudinary
+// Cloudinary Config
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// Configure Multer with Cloudinary storage
+// Multer Storage
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: "uploads",
-    format: async (req, file) => "png",
+    format: async (req, file) => "png", // Change format if needed
     public_id: (req, file) => file.originalname,
   },
 });
 
 const upload = multer({ storage });
 
-//  Debug Log
-console.log("Upload route initialized");
-
-//  Test Route
-router.get("/upload", (req, res) => {
-  console.log("GET /api/upload hit"); // This should appear in your terminal
-  res.send("Upload route is working");
-});
-
-// Upload Route
-router.post("/upload", upload.single("image"), (req, res) => {
-  console.log("POST /api/upload hit"); 
+// Upload Route (Now Saves to MongoDB)
+router.post("/upload", upload.single("image"), async (req, res) => {
   if (!req.file) {
-    console.log("No file uploaded"); 
     return res.status(400).json({ message: "No file uploaded" });
   }
-  console.log("File uploaded:", req.file.path); 
-  res.json({ imageUrl: req.file.path });
+
+  try {
+    // Save image URL to MongoDB
+    const newImage = new Image({ imageUrl: req.file.path });
+    await newImage.save();
+
+    res.json({ message: "Image uploaded and saved!", imageUrl: req.file.path });
+  } catch (error) {
+    res.status(500).json({ message: "Error saving to database", error });
+  }
 });
 
 module.exports = router;
