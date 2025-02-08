@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - SmartCity Complaint Hub</title>
+
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-[#FAF3E0]">
+
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="bg-white p-5 rounded-lg shadow-lg w-50 border border-gray-200">
+            <h2 class="text-center text-3xl font-bold text-[#2C2C2C]">SignIn</h2>
+            <form action="/login" method="POST">
+                <div class="mb-3">
+                    <label class="form-label text-[#2C2C2C]">Email</label>
+                    <input type="email" class="form-control border-gray-300" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label text-[#2C2C2C]">Password</label>
+                    <input type="password" class="form-control border-gray-300" name="password" required>
+                </div>
+                <button type="submit" class="w-100 py-2 rounded-lg bg-[#D4A373] text-white font-semibold shadow-md hover:bg-[#C78C5D] transition">
+                    Login
+                </button>
+            </form>
+            <p class="text-center mt-3 text-[#2C2C2C]">
+                Don't have an account? 
+                <a href="SignUp.html" class="text-[#4E6C50] font-semibold hover:underline">SignUp</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

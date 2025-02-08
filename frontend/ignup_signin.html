@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart City Complaint Hub - Sign Up / Sign In</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-[#FAF3E0]">
+
+    <nav class="bg-[#2C2C2C] p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-[#D4A373] text-xl font-semibold">Smart City Hub</a>
+            <div>
+                <a href="signup_signin.html" class="text-[#E8C39E] px-4 hover:text-white transition">Sign Up / Sign In</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="py-16">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center text-[#2C2C2C]">Sign Up / Sign In</h2>
+
+            <!-- Toggle between Sign Up and Sign In -->
+            <div class="mt-8 flex justify-center">
+                <div class="bg-white p-8 rounded-lg shadow-md max-w-lg w-full">
+                    <div id="signUpForm">
+                        <h3 class="text-xl font-semibold text-[#4E6C50]">Sign Up</h3>
+                        <form action="dashboard.html" method="POST">
+                            <div class="mb-4">
+                                <label for="email" class="block text-sm font-medium text-[#2C2C2C]">Email Address</label>
+                                <input type="email" id="email" name="email" class="w-full p-3 border border-gray-300 rounded-lg" required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="password" class="block text-sm font-medium text-[#2C2C2C]">Password</label>
+                                <input type="password" id="password" name="password" class="w-full p-3 border border-gray-300 rounded-lg" required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="confirm-password" class="block text-sm font-medium text-[#2C2C2C]">Confirm Password</label>
+                                <input type="password" id="confirm-password" name="confirm-password" class="w-full p-3 border border-gray-300 rounded-lg" required>
+                            </div>
+                            <button type="submit" class="bg-[#D4A373] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#E8C39E] transition">Sign Up</button>
+                        </form>
+                        <p class="text-sm text-gray-600 mt-4">Already have an account? <a href="javascript:void(0);" onclick="toggleForms()" class="underline text-[#D4A373]">Sign In</a></p>
+                    </div>
+
+                    <!-- Sign In Form (Initially Hidden) -->
+                    <div id="signInForm" class="hidden">
+                        <h3 class="text-xl font-semibold text-[#4E6C50]">Sign In</h3>
+                        <form action="dashboard.html" method="POST">
+                            <div class="mb-4">
+                                <label for="email" class="block text-sm font-medium text-[#2C2C2C]">Email Address</label>
+                                <input type="email" id="email" name="email" class="w-full p-3 border border-gray-300 rounded-lg" required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="password" class="block text-sm font-medium text-[#2C2C2C]">Password</label>
+                                <input type="password" id="password" name="password" class="w-full p-3 border border-gray-300 rounded-lg" required>
+                            </div>
+                            <button type="submit" class="bg-[#D4A373] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#E8C39E] transition">Sign In</button>
+                        </form>
+                        <p class="text-sm text-gray-600 mt-4">Don't have an account? <a href="javascript:void(0);" onclick="toggleForms()" class="underline text-[#D4A373]">Sign Up</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-[#2C2C2C] text-white py-4">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2025 Smart City Hub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleForms() {
+            const signUpForm = document.getElementById('signUpForm');
+            const signInForm = document.getElementById('signInForm');
+            signUpForm.classList.toggle('hidden');
+            signInForm.classList.toggle('hidden');
+        }
+    </script>
+
+</body>
+
+</html>
