@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .primary-bg { background: #7c01ff ; }
+        .card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+        .btn { transition: all 0.3s ease-in-out; background: #68738582; }
+        .btn:hover { transform: scale(1.05); }
+    </style>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body class="bg-gray-100 p-6">
+    <!-- Navbar -->
+    <nav class="primary-bg p-4 flex justify-between items-center shadow-md rounded-lg text-white">
+        <h1 class="text-2xl font-semibold">Complaint Dashboard</h1>
+        <div class="flex items-center space-x-6">
+            <!-- Search Bar -->
+            <!-- <div class="relative">
+                <input type="text" placeholder="Search Cities" class="bg-white text-gray-700 rounded-full px-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                <button class="absolute right-2 top-2 text-gray-500 hover:text-purple-500">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div> -->
+            <!-- Links -->
+            <a href="#" class="hover:underline">Discover</a>
+            <a href="#" class="hover:underline">FAQ</a>
+            <a href="#" class="hover:underline">Logout</a>
+            <!-- Notification Bell -->
+            <div class="relative group">
+                <span class="cursor-pointer">🔔</span>
+                <div class="absolute right-0 mt-2 w-48 bg-white text-gray-700 shadow-lg rounded-lg p-4 hidden group-hover:block">
+                    <p class="text-sm">Complaint #123 has been resolved.</p>
+                    <p class="text-sm">Your complaint #124 is in progress.</p>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-6xl mx-auto mt-6">
+        <!-- User Profile Section -->
+        <div class="card p-6 mb-6">
+            <h2 class="text-2xl font-semibold mb-4">User Profile</h2>
+            <p><strong>Name:</strong> John Doe</p>
+            <p><strong>Email:</strong> john.doe@example.com</p>
+            <p><strong>Contact:</strong> +1234567890</p>
+            <div class="mt-4">
+                <button class="button-28">Edit Profile</button>
+                <button class="button-28">Change Password</button>
+            </div>
+        </div>
+
+        <!-- Complaint Overview -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div class="card p-6 text-center">
+                <h3 class="text-lg font-semibold">Total Complaints</h3>
+                <p class="text-4xl font-bold">15</p>
+            </div>
+            <div class="card p-6 text-center">
+                <h3 class="text-lg font-semibold">Pending Complaints</h3>
+                <p class="text-4xl font-bold">5</p>
+            </div>
+            <div class="card p-6 text-center">
+                <h3 class="text-lg font-semibold">Resolved Complaints</h3>
+                <p class="text-4xl font-bold">10</p>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="card p-6 mb-6">
+            <h2 class="text-2xl font-semibold mb-4">Quick Actions</h2>
+            <a href="register.html" class="button-28 mt-2">Go to Register Page</a>
+            <button class="button-28">Track Complaint Status</button>
+            <button class="button-28">View Your Complaints</button>
+        </div>
+
+        <!-- Notifications -->
+        <!-- <div class="card p-6 mb-6">
+            <h2 class="text-2xl font-semibold mb-4">Notifications</h2>
+            <ul class="list-disc pl-6">
+                <li>Complaint #123 has been resolved.</li>
+                <li>Your complaint #124 is in progress.</li>
+            </ul>
+        </div> -->
+
+        <!-- Analytics -->
+        <div class="card p-6 mb-6">
+            <h2 class="text-2xl font-semibold mb-4">Analytics</h2>
+            <div class="bg-gray-200 p-6 rounded-lg text-center">Graph Placeholder</div>
+        </div>
+
+        <!-- Feedback Section -->
+        <div class="card p-6 mb-6">
+            <h2 class="text-2xl font-semibold mb-4">Feedback</h2>
+            <textarea class="w-full p-2 border rounded" rows="3" placeholder="Share your feedback..."></textarea>
+            <button class="button-28">Submit Feedback</button>
+        </div>
+    </div>
+</body>
+</html>

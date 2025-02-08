@@ -1,0 +1,32 @@
+.button-28 {
+    appearance: none;
+    background-color: transparent;
+    border: 2px solid #6A0DAD;
+    border-radius: 10px;
+    box-sizing: border-box;
+    color: #3B3B3B;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+    min-height: 40px;
+    padding: 10px 16px;
+    text-align: center;
+    transition: all 200ms cubic-bezier(.23, 1, 0.32, 1);
+    user-select: none;
+    width: auto;
+    max-width: 200px;
+}
+.button-28:hover {
+    color: #fff;
+    background-color: #6A0DAD;
+    box-shadow: rgba(0, 0, 0, 0.15) 0 4px 8px;
+    transform: translateY(-1px);
+}
+.button-28:active {
+    box-shadow: none;
+    transform: translateY(0);
+}
+
+/* Hide the default checkbox */

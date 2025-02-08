@@ -1,11 +1,13 @@
 const mongoose = require("mongoose");
 
-const complaintSchema = new mongoose.Schema({
+const ComplaintSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true },
+  contact: { type: String, required: true },
+  address: { type: String, required: true },
   complaint: { type: String, required: true },
-  status: { type: String, default: "Pending" },  // ✅ Add this field
-  date: { type: Date, default: Date.now }
+  imageUrl: { type: String, default: "" }, // Optional image URL
+  createdAt: { type: Date, default: Date.now },
 });
 
 const Complaint = mongoose.models.Complaint || mongoose.model("Complaint", complaintSchema);

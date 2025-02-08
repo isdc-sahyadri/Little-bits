@@ -11,6 +11,10 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json()); 
+app.use((req, res, next) => {
+  console.log(`Incoming Request: ${req.method} ${req.url}`);
+  next();
+});
 app.use(express.urlencoded({ extended: true }));
   
 
@@ -158,7 +162,8 @@ app.get("/api/complaints/:complaintId/status", async (req, res) => {
   }
 });
 
-
+const uploadRoutes = require("./routes/upload"); // Ensure the path is correct
+app.use("/api/complaints", uploadRoutes); 
 
 // Connect to MongoDB
 mongoose

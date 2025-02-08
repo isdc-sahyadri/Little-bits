@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Complaint</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .primary-bg { background: #7c01ff; }
+        .card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+        .btn { transition: all 0.3s ease-in-out; background: #68738582; }
+        .btn:hover { transform: scale(1.05); }
+        .input-field { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; outline: none; }
+        .input-field:focus { border-color: #7c01ff; box-shadow: 0 0 5px rgba(124, 1, 255, 0.5); }
+    </style>
+</head>
+<body class="bg-gray-100 p-6">
+
+    <nav class="primary-bg p-4 flex justify-between items-center shadow-md rounded-lg text-white">
+        <h1 class="text-2xl font-semibold">Register Complaint</h1>
+        <a href="dashboard.html" class="hover:underline">Back to Dashboard</a>
+    </nav>
+
+    <div class="max-w-4xl mx-auto mt-6">
+        <div class="card p-6">
+            <h2 class="text-2xl font-semibold mb-4">File a Complaint</h2>
+            <form id="complaintForm">
+                <div class="mb-4">
+                    <label class="block font-medium">Full Name</label>
+                    <input type="text" id="name" name="name" required class="input-field">
+                </div>
+
+                <div class="mb-4">
+                    <label class="block font-medium">Email Address</label>
+                    <input type="email" id="email" name="email" required class="input-field">
+                </div>
+
+                <div class="mb-4">
+                    <label class="block font-medium">Contact Number</label>
+                    <input type="tel" id="contact" name="contact" required class="input-field">
+                </div>
+
+                <div class="mb-4">
+                    <label class="block font-medium">Address</label>
+                    <input type="text" id="address" name="address" required class="input-field">
+                </div>
+
+                <div class="mb-4">
+                    <label class="block font-medium">Complaint Details</label>
+                    <textarea id="complaint" name="complaint" rows="4" required class="input-field"></textarea>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block font-medium">Upload Image (Optional)</label>
+                    <input type="file" id="image" name="image" accept="image/*" class="input-field">
+                </div>
+
+                <button type="submit" class="w-full bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition">
+                    Submit Complaint
+                </button>
+            </form>
+
+            <p id="statusMessage" class="mt-4 text-center text-green-600"></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("complaintForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+    
+            const formData = new FormData();
+            formData.append("name", document.getElementById("name").value);
+            formData.append("email", document.getElementById("email").value);
+            formData.append("contact", document.getElementById("contact").value);
+            formData.append("address", document.getElementById("address").value);
+            formData.append("complaint", document.getElementById("complaint").value);
+            
+            const imageFile = document.getElementById("image").files[0];
+            if (imageFile) {
+                formData.append("image", imageFile);
+            }
+    
+            try {
+                const response = await fetch("http://localhost:5000/api/complaints/upload", {
+                    method: "POST",
+                    body: formData
+                });
+    
+                const result = await response.json();
+                if (response.ok) {
+                    // Redirect to thank you page after successful submission
+                    window.location.href = "thanku.html";
+                } else {
+                    document.getElementById("statusMessage").textContent = "Error: " + result.message;
+                }
+            } catch (error) {
+                document.getElementById("statusMessage").textContent = "Error submitting complaint!";
+            }
+        });
+    </script>
+    
+</body>
+</html>
