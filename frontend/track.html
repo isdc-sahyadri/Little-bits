@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Complaint</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .primary-bg { background: #7c01ff; }
+        .card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+        .btn { transition: all 0.3s ease-in-out; background: #68738582; }
+        .btn:hover { transform: scale(1.05); }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+
+    <div class="card p-6 max-w-lg w-full text-center">
+        <h1 class="text-2xl font-semibold text-gray-800 mb-4">Track Your Complaint</h1>
+        
+        <!-- Complaint Search Bar -->
+        <div class="relative">
+            <input id="searchInput" type="text" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500"
+                placeholder="Enter Complaint ID or Email">
+            <button onclick="searchComplaint()" class="absolute right-3 top-3 text-purple-600 hover:text-purple-800">
+                🔍
+            </button>
+        </div>
+
+        <!-- Display Complaint Result -->
+        <div id="result" class="mt-4 text-gray-700 hidden">
+            <h3 class="text-lg font-semibold">Complaint Details</h3>
+            <p><strong>ID:</strong> <span id="compId"></span></p>
+            <p><strong>Status:</strong> <span id="compStatus"></span></p>
+        </div>
+
+        <a href="dashboard.html" class="mt-6 inline-block px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition">
+            Back to Dashboard
+        </a>
+    </div>
+
+    <script>
+        function searchComplaint() {
+            const input = document.getElementById("searchInput").value.trim();
+            const storedData = JSON.parse(localStorage.getItem("complaints")) || [];
+
+            const complaint = storedData.find(comp => comp.id === input || comp.email === input);
+            
+            if (complaint) {
+                document.getElementById("compId").innerText = complaint.id;
+                document.getElementById("compStatus").innerText = complaint.status;
+                document.getElementById("result").classList.remove("hidden");
+            } else {
+                alert("No complaint found. Please check the ID or Email.");
+            }
+        }
+    </script>
+
+</body>
+</html>

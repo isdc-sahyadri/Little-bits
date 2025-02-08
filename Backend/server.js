@@ -69,6 +69,67 @@ app.post("/api/signin", async (req, res) => {
   }
 });
 
+app.get("/api/user-complaints", async (req, res) => {
+  const userEmail = req.query.email;
+  if (!userEmail) return res.status(400).json({ error: "Email is required" });
+
+  try {
+      const complaints = await Complaint.find(
+          { email: userEmail },
+          { _id: 1, complaint: 1, status: 1 } // Fetch only ID, complaint details, and status
+      );
+
+      res.json(complaints);
+  } catch (error) {
+      res.status(500).json({ error: "Server error" });
+  }
+});
+
+
+
+app.get("/api/complaint-stats", async (req, res) => {
+  const userEmail = req.query.email; // Get email from query parameters
+
+  if (!userEmail) {
+    return res.status(400).json({ error: "User email is required" });
+  }
+
+  try {
+    const statusCounts = await Complaint.aggregate([
+      { $match: { email: userEmail } }, // Filter by email
+      { $group: { _id: "$status", count: { $sum: 1 } } }
+    ]);
+
+    res.json(statusCounts.map(s => ({ status: s._id, count: s.count })));
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+
+
+app.get("/api/complaints-per-month", async (req, res) => {
+  const userEmail = req.query.email; // Get email from query parameters
+
+  if (!userEmail) {
+    return res.status(400).json({ error: "User email is required" });
+  }
+
+  try {
+    const monthlyCounts = await Complaint.aggregate([
+      { $match: { email: userEmail } }, // Filter by email
+      { $group: { _id: { $month: "$createdAt" }, count: { $sum: 1 } } },
+      { $sort: { _id: 1 } }
+    ]);
+
+    res.json(monthlyCounts.map(m => ({ month: `Month ${m._id}`, count: m.count })));
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+
+
 // Get User Details 
 app.get("/api/user", async (req, res) => {
   try {
@@ -161,6 +222,10 @@ app.get("/api/complaints/:complaintId/status", async (req, res) => {
     res.status(500).json({ error: "Server Error", details: error.message });
   }
 });
+
+const feedbackRoutes = require("./routes/feedback");
+app.use("/api", feedbackRoutes);
+
 
 const uploadRoutes = require("./routes/upload"); // Ensure the path is correct
 app.use("/api/complaints", uploadRoutes); 

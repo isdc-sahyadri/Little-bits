@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Complaints</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .primary-bg { background: #7c01ff; }
+        .card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+        .btn { transition: all 0.3s ease-in-out; background: #68738582; }
+        .btn:hover { transform: scale(1.05); }
+    </style>
+    <script>
+       document.addEventListener("DOMContentLoaded", async function() {
+    const userEmail = localStorage.getItem("userEmail");
+    if (!userEmail) {
+        alert("No user logged in!");
+        window.location.href = "index.html";
+        return;
+    }
+
+    document.getElementById("userEmail").textContent = userEmail;
+
+    try {
+        const response = await fetch(`http://localhost:5000/api/user-complaints?email=${userEmail}`);
+        const complaints = await response.json();
+
+        const complaintsTable = document.getElementById("complaintsTable");
+
+        if (complaints.length === 0) {
+            complaintsTable.innerHTML = "<tr><td colspan='3' class='text-center text-gray-500'>No complaints found</td></tr>";
+        } else {
+            complaints.forEach(complaint => {
+                const row = `<tr class="border-b">
+                                <td class="p-3">${complaint._id}</td>
+                                <td class="p-3">${complaint.complaint}</td>
+                                <td class="p-3 font-semibold ${complaint.status === 'Resolved' ? 'text-green-600' : 'text-red-600'}">
+                                    ${complaint.status}
+                                </td>
+                            </tr>`;
+                complaintsTable.innerHTML += row;
+            });
+        }
+    } catch (error) {
+        console.error("Error fetching complaints:", error);
+    }
+});
+
+    </script>
+</head>
+<body class="bg-gray-100 p-6">
+    <nav class="primary-bg p-4 flex justify-between items-center shadow-md rounded-lg text-white">
+        <h1 class="text-2xl font-semibold">View Complaints</h1>
+        <a href="dashboard.html" class="hover:underline">Back to Dashboard</a>
+    </nav>
+
+    <div class="max-w-4xl mx-auto mt-6 card p-6">
+        <h2 class="text-2xl font-semibold mb-4">Your Complaints</h2>
+        <p><strong>Logged in as:</strong> <span id="userEmail"></span></p>
+
+        <div class="overflow-x-auto mt-4">
+            <table class="w-full border-collapse border border-gray-300">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="p-3 text-left">Complaint ID</th>
+                        <th class="p-3 text-left">Issue</th>
+                        <th class="p-3 text-left">Status</th>
+                    </tr>
+                </thead>
+                <tbody id="complaintsTable"></tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

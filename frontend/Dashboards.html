@@ -74,8 +74,8 @@
         <div class="card p-6 mb-6">
             <h2 class="text-2xl font-semibold mb-4">Quick Actions</h2>
             <a href="register.html" class="button-28 mt-2">Go to Register Page</a>
-            <button class="button-28">Track Complaint Status</button>
-            <button class="button-28">View Your Complaints</button>
+            <a href="track.html" class="button-28 mt-2">Track Complaint Status</a>
+            <a href="view.html" class="button-28 mt-2">View Your Complaints</a>
         </div>
 
         <!-- Notifications -->
@@ -86,12 +86,28 @@
                 <li>Your complaint #124 is in progress.</li>
             </ul>
         </div> -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
         <!-- Analytics -->
-        <div class="card p-6 mb-6">
-            <h2 class="text-2xl font-semibold mb-4">Analytics</h2>
-            <div class="bg-gray-200 p-6 rounded-lg text-center">Graph Placeholder</div>
+        <div class="card p-6 mb-6 bg-white shadow-lg rounded-lg">
+            <h2 class="text-2xl font-semibold mb-4 text-gray-800">Analytics</h2>
+        
+            <!-- Container for Graphs -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Doughnut Chart (Complaint Status) -->
+                <div class="flex justify-center">
+                    <canvas id="complaintChart" class="w-64 h-64"></canvas>
+                </div>
+        
+                <!-- Bar Chart (Complaints per Month) -->
+                <div class="flex justify-center">
+                    <canvas id="monthlyComplaintsChart" class="w-64 h-64"></canvas>
+                </div>
+            </div>
         </div>
+        
+        
+        
 
         <!-- Feedback Section -->
         <div class="card p-6 mb-6">
@@ -100,5 +116,120 @@
             <button class="button-28">Submit Feedback</button>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", async function() {
+            const userEmail = localStorage.getItem("userEmail"); // Get email from local storage
+        
+            if (!userEmail) {
+                console.error("User email not found in local storage.");
+                return;
+            }
+        
+            try {
+                // Fetch complaint statistics for the logged-in user
+                const responseStatus = await fetch(`http://localhost:5000/api/complaint-stats?email=${userEmail}`);
+                const responseMonthly = await fetch(`http://localhost:5000/api/complaints-per-month?email=${userEmail}`);
+        
+                const stats = await responseStatus.json();
+                const monthlyStats = await responseMonthly.json();
+        
+                // Data for Doughnut Chart (Complaint Status)
+                const labelsStatus = stats.map(s => s.status);
+                const dataStatus = stats.map(s => s.count);
+        
+                // Data for Bar Chart (Complaints per Month)
+                const labelsMonthly = monthlyStats.map(m => m.month);
+                const dataMonthly = monthlyStats.map(m => m.count);
+        
+                // Render Doughnut Chart
+                new Chart(document.getElementById("complaintChart").getContext("2d"), {
+                    type: "doughnut",
+                    data: {
+                        labels: labelsStatus,
+                        datasets: [{
+                            label: "Complaint Status",
+                            data: dataStatus,
+                            backgroundColor: ["#7c01ff", "#a855f7", "#d8b4fe"], // Purple Shades
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: "bottom", labels: { color: "#7c01ff" } }
+                        }
+                    }
+                });
+        
+                // Render Bar Chart
+                new Chart(document.getElementById("monthlyComplaintsChart").getContext("2d"), {
+                    type: "bar",
+                    data: {
+                        labels: labelsMonthly,
+                        datasets: [{
+                            label: "Complaints per Month",
+                            data: dataMonthly,
+                            backgroundColor: "#7c01ff", // Purple color
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: { beginAtZero: true, ticks: { color: "#7c01ff" } },
+                            x: { ticks: { color: "#7c01ff" } }
+                        },
+                        plugins: {
+                            legend: { display: false }
+                        }
+                    }
+                });
+        
+            } catch (error) {
+                console.error("Error loading analytics:", error);
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+    const feedbackInput = document.querySelector("textarea");
+    const submitButton = document.querySelector(".button-28");
+
+    submitButton.addEventListener("click", async () => {
+        const userEmail = localStorage.getItem("userEmail"); // Get user email from local storage
+        const feedbackMessage = feedbackInput.value.trim();
+
+        if (!userEmail || !feedbackMessage) {
+            alert("Please enter your feedback!");
+            return;
+        }
+
+        try {
+            const response = await fetch("http://localhost:5000/api/submit-feedback", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email: userEmail, message: feedbackMessage })
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                alert("Feedback submitted successfully!");
+                feedbackInput.value = ""; // Clear input
+            } else {
+                alert(data.error);
+            }
+        } catch (error) {
+            console.error("Error submitting feedback:", error);
+        }
+    });
+});
+        </script>
+        
+        
+        
+        
 </body>
 </html>
