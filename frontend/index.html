@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart City Complaint Hub</title>
-
+    <title>Smart City Platform</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -21,16 +20,63 @@
                 <a href="SignIn.html" class="text-[#E8C39E] px-4 hover:text-white transition">SignIn</a>
                 
             </div>
+            <div class="space-x-6 hidden md:flex">
+                <a href="#" class="hover:underline">Home</a>
+                <a href="#" class="hover:underline">Data</a>
+                <a href="#" class="hover:underline">Cities</a>
+                <a href="#" class="hover:underline">Documents</a>
+                <a href="#" class="hover:underline">FAQ</a>
+            </div>
+            <a href="#" class="bg-white text-blue-900 px-4 py-2 rounded-md font-semibold hover:bg-gray-200">Sign In | Sign Up</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="bg-[#D4A373] text-white py-16">
         <div class="container mx-auto text-center">
-            <h1 class="text-4xl font-bold">Welcome to the Smart City Complaint Hub</h1>
-            <p class="mt-4 text-lg">A platform to register and resolve your complaints for a better community.</p>
-            <div class="mt-6">
-                <a href="SignUp.html" class="bg-white text-[#D4A373] py-2 px-6 rounded-full font-semibold shadow-md hover:bg-gray-200 transition">Get Started</a>
+            <h2 class="text-4xl font-bold">Open Data Platform: India Smart Cities</h2>
+            <p class="mt-4 text-lg">Empowering Cities through Open Data</p>
+            <div class="mt-6 relative max-w-lg mx-auto">
+                <input type="text" class="w-full p-3 rounded-full text-black" placeholder="Search 3,326 data catalogs">
+                <button class="absolute right-3 top-3 text-blue-900">
+                    🔍
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Statistics Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto grid grid-cols-2 md:grid-cols-6 gap-6 text-center">
+            <div>
+                <img src="city-icon.png" alt="Cities" class="mx-auto h-12">
+                <h3 class="text-2xl font-bold">100</h3>
+                <p class="text-gray-600">Cities</p>
+            </div>
+            <div>
+                <img src="catalog-icon.png" alt="Catalogs" class="mx-auto h-12">
+                <h3 class="text-2xl font-bold">3,326</h3>
+                <p class="text-gray-600">Catalogs</p>
+            </div>
+            <div>
+                <img src="resource-icon.png" alt="Resources" class="mx-auto h-12">
+                <h3 class="text-2xl font-bold">5,344</h3>
+                <p class="text-gray-600">Resources</p>
+            </div>
+            <div>
+                <img src="api-icon.png" alt="APIs" class="mx-auto h-12">
+                <h3 class="text-2xl font-bold">243</h3>
+                <p class="text-gray-600">APIs</p>
+            </div>
+            <div>
+                <img src="views-icon.png" alt="Views" class="mx-auto h-12">
+                <h3 class="text-2xl font-bold">824,405</h3>
+                <p class="text-gray-600">Views</p>
+            </div>
+            <div>
+                <img src="download-icon.png" alt="Downloads" class="mx-auto h-12">
+                <h3 class="text-2xl font-bold">180,654</h3>
+                <p class="text-gray-600">Downloads</p>
             </div>
         </div>
     </section>
@@ -121,5 +167,6 @@
     </footer>
 
 </body>
-
 </html>
+
+

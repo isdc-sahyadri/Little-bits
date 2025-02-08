@@ -1,10 +1,13 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const ComplaintSchema = new mongoose.Schema({
-  imageUrl: { type: String, required: true },
-  description: { type: String, required: true },
-  location: { type: String, required: true },
+const complaintSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  complaint: { type: String, required: true },
+  status: { type: String, default: "Pending" },  // ✅ Add this field
   date: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('Complaint', ComplaintSchema);
+const Complaint = mongoose.models.Complaint || mongoose.model("Complaint", complaintSchema);
+
+module.exports = Complaint;
