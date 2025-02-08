@@ -6,10 +6,14 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("./models/User");
 
+
 dotenv.config();
 const app = express();
-app.use(express.json());
 app.use(cors());
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true }));
+  
+
 
 const SECRET_KEY = process.env.JWT_SECRET || "mysecretkey";
 
@@ -77,6 +81,84 @@ app.get("/api/user", async (req, res) => {
     res.status(500).json({ error: "Error fetching user details", details: error.message });
   }
 });
+
+
+
+const complaintSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  complaint: { type: String, required: true },
+  complaintId: { type: String, unique: true, required: true },
+  status: { type: String, default: "Pending" }, 
+  date: { type: Date, default: Date.now }
+});
+
+const Complaint = mongoose.models.Complaint || mongoose.model("Complaint", complaintSchema);
+module.exports = Complaint;
+
+
+app.post("/api/complaints", async (req, res) => {
+  try {
+    const { name, email, complaint } = req.body;
+
+    const newComplaint = new Complaint({ 
+      name, 
+      email, 
+      complaint, 
+      complaintId: new mongoose.Types.ObjectId().toString(), 
+      status: "Pending" 
+    });
+
+    console.log("Complaint to be saved:", newComplaint); 
+
+    await newComplaint.save();
+
+    res.status(201).json({ 
+      message: "Complaint submitted successfully!", 
+      complaintId: newComplaint.complaintId,
+      status: newComplaint.status 
+    });
+  } catch (error) {
+    console.error("Error saving complaint:", error.message);
+    res.status(500).json({ error: "Server Error", details: error.message });
+  }
+});
+
+
+
+// API Route to Get Complaints
+app.get("/api/complaints", async (req, res) => {
+  try {
+    const complaints = await Complaint.find();
+    res.status(200).json(complaints);
+  } catch (error) {
+    res.status(500).json({ error: "Server Error" });
+  }
+});
+
+// Import Routes
+const complaintRoutes = require("./routes/complaints");
+app.use("/api/complaints", complaintRoutes);
+
+
+app.get("/api/complaints/:complaintId/status", async (req, res) => {
+  try {
+    const { complaintId } = req.params;
+
+    const complaint = await Complaint.findOne({ complaintId });
+
+    if (!complaint) {
+      return res.status(404).json({ error: "Complaint not found" });
+    }
+
+    res.status(200).json({ complaintId: complaint.complaintId, status: complaint.status });
+  } catch (error) {
+    console.error("Error fetching complaint status:", error.message);
+    res.status(500).json({ error: "Server Error", details: error.message });
+  }
+});
+
+
 
 // Connect to MongoDB
 mongoose
