@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Complaints</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Styling -->
+    <style>
+        .pri-bg {
+            background-color: #7c01ff; /* Purple */
+            color: white;
+        }
+        .btn-primary-custom {
+            background-color: #7c01ff;
+            color: white;
+        }
+        .btn-primary-custom:hover {
+            background-color: #6601cc; /* Slightly darker purple */
+            color: white;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-100">
+
+    <!-- Admin Dashboard Header -->
+    <header class="pri-bg py-4">
+        <div class="container text-center">
+            <h1 class="display-4">Admin Dashboard</h1>
+            <p>Manage Complaints and Issues</p>
+        </div>
+    </header>
+
+    <!-- Complaints Table -->
+    <section class="py-5">
+        <div class="container">
+            <h3 class="text-center mb-4">Complaint List</h3>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Complaint ID</th>
+                        <th>User Name</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>001</td>
+                        <td>John Doe</td>
+                        <td><span class="badge badge-warning">Pending</span></td>
+                        <td>
+                            <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#complaintModal" onclick="loadComplaintInfo(1)">View More</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>002</td>
+                        <td>Jane Smith</td>
+                        <td><span class="badge badge-danger">Unresolved</span></td>
+                        <td>
+                            <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#complaintModal" onclick="loadComplaintInfo(2)">View More</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>003</td>
+                        <td>Emily Johnson</td>
+                        <td><span class="badge badge-success">Resolved</span></td>
+                        <td>
+                            <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#complaintModal" onclick="loadComplaintInfo(3)">View More</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Complaint Details Modal -->
+    <div class="modal fade" id="complaintModal" tabindex="-1" role="dialog" aria-labelledby="complaintModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="complaintModalLabel">Complaint Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="complaintDetails"></div>
+
+                    <!-- Resolution Notes -->
+                    <div class="form-group">
+                        <label for="resolutionNotes">Resolution Notes</label>
+                        <textarea class="form-control" id="resolutionNotes" rows="3" placeholder="Enter resolution notes..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="status">Update Status</label>
+                        <select class="form-control" id="status">
+                            <option value="pending">Pending</option>
+                            <option value="unresolved">Unresolved</option>
+                            <option value="resolved">Resolved</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="updateComplaintStatus()">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Function to load complaint details into modal
+        function loadComplaintInfo(complaintId) {
+            let complaintDetails = '';
+            let complaintName = '';
+            let complaintStatus = '';
+
+            // Simulating fetching complaint data
+            if (complaintId === 1) {
+                complaintName = 'John Doe';
+                complaintStatus = 'Pending';
+                complaintDetails = `
+                    <p><strong>Complaint ID:</strong> 001</p>
+                    <p><strong>User Name:</strong> John Doe</p>
+                    <p><strong>Status:</strong> Pending</p>
+                `;
+            } else if (complaintId === 2) {
+                complaintName = 'Jane Smith';
+                complaintStatus = 'Unresolved';
+                complaintDetails = `
+                    <p><strong>Complaint ID:</strong> 002</p>
+                    <p><strong>User Name:</strong> Jane Smith</p>
+                    <p><strong>Status:</strong> Unresolved</p>
+                `;
+            } else if (complaintId === 3) {
+                complaintName = 'Emily Johnson';
+                complaintStatus = 'Resolved';
+                complaintDetails = `
+                    <p><strong>Complaint ID:</strong> 003</p>
+                    <p><strong>User Name:</strong> Emily Johnson</p>
+                    <p><strong>Status:</strong> Resolved</p>
+                `;
+            }
+
+            document.getElementById('complaintDetails').innerHTML = complaintDetails;
+            document.getElementById('status').value = complaintStatus.toLowerCase();
+        }
+
+        // Function to update complaint status and resolution notes
+        function updateComplaintStatus() {
+            const status = document.getElementById('status').value;
+            const resolutionNotes = document.getElementById('resolutionNotes').value;
+
+            // Here, send data to the backend (e.g., using fetch API or AJAX)
+            alert('Complaint status updated to ' + status + ' with resolution notes: ' + resolutionNotes);
+        }
+    </script>
+
+</body>
+</html>
