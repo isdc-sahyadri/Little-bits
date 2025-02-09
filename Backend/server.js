@@ -169,6 +169,55 @@ app.post("/api/complaints", async (req, res) => {
   }
 });
 
+// Get all complaints (for Complaint List Table)
+app.get("/api/all-complaints", async (req, res) => {
+  try {
+    const complaints = await Complaint.find({}, "complaintId name status");
+    res.json(complaints);
+  } catch (error) {
+    res.status(500).json({ error: "Server Error", details: error.message });
+  }
+});
+
+
+
+
+
+// Update complaint status
+app.put("/api/complaints/:id", async (req, res) => {
+  try {
+    const { status } = req.body;
+
+    const updatedComplaint = await Complaint.findOneAndUpdate(
+      { complaintId: req.params.id },
+      { status },
+      { new: true }
+    );
+
+    if (!updatedComplaint) return res.status(404).json({ error: "Complaint Not Found" });
+
+    res.json({ message: "Complaint Updated", updatedComplaint });
+  } catch (error) {
+    res.status(500).json({ error: "Server Error", details: error.message });
+  }
+});
+
+
+
+
+// Get complaint details by ID
+app.get("/api/complaints/:id", async (req, res) => {
+  try {
+    const complaint = await Complaint.findOne({ complaintId: req.params.id });
+
+    if (!complaint) return res.status(404).json({ error: "Complaint Not Found" });
+
+    res.json(complaint);
+  } catch (error) {
+    res.status(500).json({ error: "Server Error", details: error.message });
+  }
+});
+
 
 app.get("/api/complaints/:complaintId", async (req, res) => {
   try {
