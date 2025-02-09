@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs - Smart City Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .primary-bg { background: #7c01ff; }
+        .card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+        .faq-item { border-bottom: 1px solid rgba(0, 0, 0, 0.1); padding: 10px 0; cursor: pointer; }
+        .faq-answer { display: none; padding-top: 5px; color: #444; }
+    </style>
+</head>
+<body class="bg-gray-100 p-6">
+
+    <!-- Navbar -->
+    <nav class="primary-bg p-4 flex justify-between items-center shadow-md rounded-lg text-white">
+        <h1 class="text-2xl font-semibold">Smart City Hub - FAQs</h1>
+        <div class="flex items-center space-x-6">
+            <a href="index.html" class="hover:underline">Home</a>
+            <a href="dashboard.html" class="hover:underline">Dashboard</a>
+            <a href="faq.html" class="hover:underline">FAQ</a>
+            <a href="logout.html" class="hover:underline">Logout</a>
+        </div>
+    </nav>
+
+    <!-- FAQ Section -->
+    <div class="max-w-4xl mx-auto mt-8 card p-6">
+        <h2 class="text-2xl font-semibold text-center mb-4">Frequently Asked Questions</h2>
+        
+        <div class="space-y-4">
+            <div class="faq-item">
+                <h3 class="text-lg font-medium">❓ How can I register a complaint?</h3>
+                <p class="faq-answer">You can register a complaint by navigating to the "Register Complaint" section in the dashboard and filling out the required details.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3 class="text-lg font-medium">❓ How do I track my complaint status?</h3>
+                <p class="faq-answer">Go to the "Track Complaint" section in the dashboard and enter your complaint ID to see the current status.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3 class="text-lg font-medium">❓ Can I edit or delete my complaint?</h3>
+                <p class="faq-answer">No, once a complaint is submitted, it cannot be deleted. However, you can update additional information by contacting support.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3 class="text-lg font-medium">❓ What happens after I submit a complaint?</h3>
+                <p class="faq-answer">After submission, your complaint is reviewed by the relevant department, and you will receive updates via email or SMS.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3 class="text-lg font-medium">❓ How do I contact support?</h3>
+                <p class="faq-answer">You can contact support via the "Help" section in your dashboard or email us at support@smartcityhub.com.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle FAQ answers on click
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const answer = item.querySelector('.faq-answer');
+                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+    </script>
+
+</body>
+</html>
