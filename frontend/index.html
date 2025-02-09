@@ -104,21 +104,25 @@
         </div>
     </section>
 
-    <!-- Example 1: Waste Management -->
-    <section class="py-16">
-        <div class="container mx-auto flex flex-col md:flex-row items-center gap-8">
-            <!-- Left Side: Image -->
-            <div class="flex-1">
-                <img src="images/WM.jpg" alt="Waste Management Issues" class="w-full h-auto rounded-lg shadow-lg">
+    <section class="py-16 relative">
+        <div class="container mx-auto flex flex-col md:flex-row items-center gap-8 mt-12">
+            <!-- Left Side: Large Image -->
+            <div class="flex-1 relative max-w-lg">
+                <img src="images/WM.jpg" alt="Waste Management Issues" 
+                    class="w-full h-64 md:h-80 rounded-2xl shadow-lg object-cover">
             </div>
-
-            <!-- Right Side: Content -->
-            <div class="flex-1 text-center md:text-left">
-                <h3 class="text-2xl font-bold text-[#4E6C50]">Waste Management Issues</h3>
-                <p class="mt-4 text-gray-600">The city faces challenges with waste collection, improper disposal, and inadequate recycling facilities. Addressing these issues is crucial for maintaining a clean and sustainable environment.</p>
+    
+            <!-- Right Side: Content Card (Slightly Overlapping) -->
+            <div class="absolute left-10 md:right-16 bg-white p-6 rounded-xl shadow-lg max-w-xs -mt-10 md:-mt-16">
+                <h2 class="text-lg md:text-xl font-bold text-gray-800">Waste Management Issues</h2>
+                <p class="mt-2 text-gray-600">
+                    The city faces challenges with waste collection, improper disposal, and inadequate recycling facilities. 
+                    Addressing these issues is crucial for maintaining a clean and sustainable environment.
+                </p>
             </div>
         </div>
     </section>
+    
 
     <!-- Example 2: Traffic Congestion -->
     <section class="py-16">
