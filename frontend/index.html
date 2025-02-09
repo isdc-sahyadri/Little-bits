@@ -75,7 +75,83 @@
             color: #666;
             margin-top: 10px;
         }
-    
+
+
+        /* Feature Section */
+        .feature-section {
+            text-align: center;
+            padding: 60px 20px;
+            background-color: #6a0dad; /* Purple background */
+            color: white;
+        }
+
+        .feature-section h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .feature-section p {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        /* Feature Card Container */
+        .feature-card-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 50px auto;
+            max-width: 1200px;
+            padding: 0 20px;
+        }
+
+        /* Feature Card */
+        .feature-card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 320px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon-wrapper {
+            background: #f4e1ff; /* Light purple */
+            padding: 20px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .feature-icon-wrapper img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            color: #6a0dad;
+            margin-top: 15px;
+        }
+
+        .feature-card p {
+            font-size: 1rem;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .feature-card-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
     </style>
 </head>
 
@@ -106,7 +182,7 @@
     <!-- Statistics Section -->
     <!-- Statistics Section -->
 <section class="py-16 bg-white">
-    <div class="container mx-auto grid grid-cols-2 md:grid-cols-6 gap-6 text-center">
+    <div class="containers mx-auto grid grid-cols-2 md:grid-cols-6 gap-6 text-center">
         <!-- Total Complaints Registered -->
         <div class="hover:scale-110 transition">
             <img src="images/clipboard.png" alt="Total Complaints" class="mx-auto h-12">
@@ -145,28 +221,63 @@
         </div>
     </div>
 </section>
-    <!-- Features Section -->
-    <section class="py-16">
-        <div class="container mx-auto text-center">
-            <h2 class="text-3xl font-bold text-[#2C2C2C]">Features</h2>
-            <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="card p-6 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition">
-                    <img src="images/complaint.png" alt="Complaint Registration" class="w-20 h-20 mx-auto mb-4">
-                    <h3 class="text-xl font-semibold text-[#4E6C50]">Easy Complaint Registration</h3>
-                    <p class="mt-4 text-gray-600">Submit complaints with ease using our intuitive platform.</p>
-                </div>
-                <div class="card p-6 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition">
-                    <img src="images/track.png" alt="Track Progress" class="w-20 h-20 mx-auto mb-4">
-                    <h3 class="text-xl font-semibold text-[#4E6C50]">Track Progress</h3>
-                    <p class="mt-4 text-gray-600">Track the status of your complaint and get updates in real time.</p>
-                </div>
-                <div class="card p-6 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition">
-                    <img src="images/CE.png" alt="Community Engagement" class="w-20 h-20 mx-auto mb-4">
-                    <h3 class="text-xl font-semibold text-[#4E6C50]">Community Engagement</h3>
-                    <p class="mt-4 text-gray-600">Engage with local authorities and community leaders to resolve issues quickly.</p>
-                </div>
-            </div>
+   <!-- Features Section -->
+
+
+<!-- Feature Cards -->
+<div class="flex flex-col items-center text-center my-8">
+    <h2 class="text-3xl md:text-4xl font-extrabold text-purple-700">
+        Why Do We Need This?
+    </h2>
+    <p class="text-lg md:text-xl text-gray-700 mt-2">
+        Empowering you with a seamless and effective complaint resolution system.
+    </p>
+</div>
+
+
+
+<!-- Feature Cards -->
+<div class="feature-card-container">
+    
+    <!-- Card 1 -->
+    <div class="feature-card">
+        <div class="feature-icon-wrapper">
+            <img src="icons/complaint.svg" alt="Complaint">
         </div>
+        <h3>Easy Complaint Registration</h3>
+        <p>Submit complaints with ease using our intuitive platform.</p>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="feature-card">
+        <div class="feature-icon-wrapper">
+            <img src="icons/track.svg" alt="Track">
+        </div>
+        <h3>Track Progress</h3>
+        <p>Track the status of your complaint and get real-time updates.</p>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="feature-card">
+        <div class="feature-icon-wrapper">
+            <img src="icons/community.svg" alt="Community">
+        </div>
+        <h3>Community Engagement</h3>
+        <p>Engage with local authorities and community leaders.</p>
+    </div>
+
+</div>
+
+<div class="flex flex-col items-center text-center my-8">
+    <h2 class="text-3xl md:text-4xl font-extrabold text-purple-700">
+        Why do we need this !
+    </h2>
+    <p class="text-lg md:text-xl text-gray-700 mt-2">
+        For the better tomorrow.
+    </p>
+</div>
+
+
 <!-- Waste Management -->
 <section class="py-24 flex justify-start mt-20 relative">
     <div class="w-full md:w-[90%] flex flex-col md:flex-row-reverse items-center gap-12 ml-0 md:ml-[-30%]">
