@@ -22,7 +22,7 @@
             <!-- Links -->
             <a href="discover.html" class="hover:underline">Discover</a>
             <a href="faq.html" class="hover:underline">FAQ</a>
-            <a href="logout.html" class="hover:underline">Logout</a>
+            <a href="index.html" class="hover:underline">Logout</a>
             <!-- Notification Bell -->
             <div class="relative group">
                 <span class="cursor-pointer">🔔</span>
@@ -51,15 +51,15 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             <div class="card p-6 text-center">
                 <h3 class="text-lg font-semibold">Total Complaints</h3>
-                <p class="text-4xl font-bold">15</p>
+                <p class="text-4xl font-bold">3</p>
             </div>
             <div class="card p-6 text-center">
                 <h3 class="text-lg font-semibold">Pending Complaints</h3>
-                <p class="text-4xl font-bold">5</p>
+                <p class="text-4xl font-bold">2</p>
             </div>
             <div class="card p-6 text-center">
                 <h3 class="text-lg font-semibold">Resolved Complaints</h3>
-                <p class="text-4xl font-bold">10</p>
+                <p class="text-4xl font-bold">1</p>
             </div>
         </div>
 
@@ -99,6 +99,29 @@
         </div>
 
     <script>
+        async function fetchComplaintCounts() {
+    const userEmail = localStorage.getItem("userEmail"); // Get email from local storage
+
+    if (!userEmail) {
+        alert("User email not found in session.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`http://localhost:5000/api/complaints/count?email=${encodeURIComponent(userEmail)}`);
+        const data = await response.json();
+
+        document.getElementById("totalComplaints").innerText = data.total;
+        document.getElementById("pendingComplaints").innerText = data.pending;
+        document.getElementById("resolvedComplaints").innerText = data.resolved;
+    } catch (error) {
+        console.error("Error fetching complaint counts:", error);
+    }
+}
+
+// Call function on page load
+fetchComplaintCounts();
+
     document.addEventListener("DOMContentLoaded", async function() {
         const userEmail = localStorage.getItem("userEmail"); // Ensure correct email key
 
