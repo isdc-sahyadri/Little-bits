@@ -17,6 +17,65 @@
         .card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
         .btn { transition: all 0.3s ease-in-out; background: #68738582; }
         .btn:hover { transform: scale(1.05); }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 80%;
+            margin: 50px auto;
+        }
+
+        .image-container {
+            width: 100%;
+            max-width: 700px;
+            height: 350px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            width: 70%;
+            max-width: 450px;
+            position: absolute;
+            bottom: -30px; /* Moves the card downwards to extend outside */
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .card h2 {
+            font-size: 22px;
+            color: #333;
+        }
+
+        .card p {
+            font-size: 16px;
+            color: #666;
+            margin-top: 10px;
+        }
+    
     </style>
 </head>
 
@@ -45,41 +104,47 @@
     </section>
 
     <!-- Statistics Section -->
-    <section class="py-16 bg-white">
-        <div class="container mx-auto grid grid-cols-2 md:grid-cols-6 gap-6 text-center">
-            <div class="hover:scale-110 transition">
-                <img src="images/buildings.png" alt="Cities" class="mx-auto h-12">
-                <h3 class="text-2xl font-bold">100</h3>
-                <p class="text-gray-600">Cities</p>
-            </div>
-            <div class="hover:scale-110 transition">
-                <img src="images/catalogue.png" alt="Catalogs" class="mx-auto h-12">
-                <h3 class="text-2xl font-bold">3,326</h3>
-                <p class="text-gray-600">Catalogs</p>
-            </div>
-            <div class="hover:scale-110 transition">
-                <img src="images/support.png" alt="Resources" class="mx-auto h-12">
-                <h3 class="text-2xl font-bold">5,344</h3>
-                <p class="text-gray-600">Resources</p>
-            </div>
-            <div class="hover:scale-110 transition">
-                <img src="images/api.png" alt="APIs" class="mx-auto h-12">
-                <h3 class="text-2xl font-bold">243</h3>
-                <p class="text-gray-600">APIs</p>
-            </div>
-            <div class="hover:scale-110 transition">
-                <img src="images/views.png" alt="Views" class="mx-auto h-12">
-                <h3 class="text-2xl font-bold">824,405</h3>
-                <p class="text-gray-600">Views</p>
-            </div>
-            <div class="hover:scale-110 transition">
-                <img src="images/file (1).png" alt="Downloads" class="mx-auto h-12">
-                <h3 class="text-2xl font-bold">180,654</h3>
-                <p class="text-gray-600">Downloads</p>
-            </div>
+    <!-- Statistics Section -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto grid grid-cols-2 md:grid-cols-6 gap-6 text-center">
+        <!-- Total Complaints Registered -->
+        <div class="hover:scale-110 transition">
+            <img src="images/clipboard.png" alt="Total Complaints" class="mx-auto h-12">
+            <h3 class="text-2xl font-bold">10,000</h3>
+            <p class="text-gray-600">Total Complaints</p>
         </div>
-    </section>
-
+        <!-- Complaints Resolved -->
+        <div class="hover:scale-110 transition">
+            <img src="images/checkmark.png" alt="Complaints Resolved" class="mx-auto h-12">
+            <h3 class="text-2xl font-bold">7,500</h3>
+            <p class="text-gray-600">Complaints Resolved</p>
+        </div>
+        <!-- Pending Complaints -->
+        <div class="hover:scale-110 transition">
+            <img src="images/clock.png" alt="Pending Complaints" class="mx-auto h-12">
+            <h3 class="text-2xl font-bold">2,500</h3>
+            <p class="text-gray-600">Pending Complaints</p>
+        </div>
+        <!-- Average Resolution Time -->
+        <div class="hover:scale-110 transition">
+            <img src="images/stopwatch.png" alt="Average Resolution Time" class="mx-auto h-12">
+            <h3 class="text-2xl font-bold">3 Days</h3>
+            <p class="text-gray-600">Avg. Resolution Time</p>
+        </div>
+        <!-- Citizen Satisfaction Rate -->
+        <div class="hover:scale-110 transition">
+            <img src="images/smiley.png" alt="Citizen Satisfaction" class="mx-auto h-12">
+            <h3 class="text-2xl font-bold">92%</h3>
+            <p class="text-gray-600">Satisfaction Rate</p>
+        </div>
+        <!-- Active Users -->
+        <div class="hover:scale-110 transition">
+            <img src="images/users.png" alt="Active Users" class="mx-auto h-12">
+            <h3 class="text-2xl font-bold">50,000</h3>
+            <p class="text-gray-600">Active Users</p>
+        </div>
+    </div>
+</section>
     <!-- Features Section -->
     <section class="py-16">
         <div class="container mx-auto text-center">
@@ -102,66 +167,72 @@
                 </div>
             </div>
         </div>
-    </section>
-
-    <section class="py-16 relative">
-        <div class="container mx-auto flex flex-col md:flex-row items-center gap-8 mt-12">
-            <!-- Left Side: Large Image -->
-            <div class="flex-1 relative max-w-lg">
-                <img src="images/WM.jpg" alt="Waste Management Issues" 
-                    class="w-full h-64 md:h-80 rounded-2xl shadow-lg object-cover">
-            </div>
-    
-            <!-- Right Side: Content Card (Slightly Overlapping) -->
-            <div class="absolute left-10 md:right-16 bg-white p-6 rounded-xl shadow-lg max-w-xs -mt-10 md:-mt-16">
-                <h2 class="text-lg md:text-xl font-bold text-gray-800">Waste Management Issues</h2>
-                <p class="mt-2 text-gray-600">
-                    The city faces challenges with waste collection, improper disposal, and inadequate recycling facilities. 
-                    Addressing these issues is crucial for maintaining a clean and sustainable environment.
-                </p>
-            </div>
+<!-- Waste Management -->
+<section class="py-24 flex justify-start mt-20 relative">
+    <div class="w-full md:w-[90%] flex flex-col md:flex-row-reverse items-center gap-12 ml-0 md:ml-[-30%]">
+        <!-- Right Side: Image -->
+        <div class="flex-1 relative max-w-2xl">
+            <img src="images/WM.jpg" alt="Traffic Congestion" 
+                class="w-full h-80 md:h-[28rem] rounded-2xl shadow-xl object-cover">
         </div>
-    </section>
-    
 
-    <!-- Example 2: Traffic Congestion -->
-    <section class="py-16">
-        <div class="container mx-auto flex flex-col md:flex-row-reverse items-center gap-8">
-            <!-- Right Side: Image -->
-            <div class="flex-1">
-                <img src="images/TC.jpg" alt="Traffic Congestion" class="w-full h-auto rounded-lg shadow-lg">
-            </div>
-
-            <!-- Left Side: Content -->
-            <div class="flex-1 text-center md:text-left">
-                <h3 class="text-2xl font-bold text-[#4E6C50]">Traffic Congestion</h3>
-                <p class="mt-4 text-gray-600">The city is plagued by traffic congestion, especially during peak hours. Implementing better traffic management and expanding public transportation can help alleviate this issue.</p>
-            </div>
+        <!-- Left Side: Content Card (Overlapping) -->
+        <div class="absolute md:left-[55%] bg-white p-8 rounded-2xl shadow-xl max-w-md -mt-16">
+            <h2 class="text-xl md:text-2xl font-bold text-gray-800 text-center">Waste Management Issues</h2>
+            <p class="mt-4 text-lg text-gray-600 leading-relaxed text-center">
+                The city faces challenges with waste collection, improper disposal, and inadequate recycling facilities. 
+                Addressing these issues is crucial for a clean and sustainable environment.            
+            </p>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Example 3: Potholes and Damaged Roads -->
-    <section class="py-16">
-        <div class="container mx-auto flex flex-col md:flex-row items-center gap-8">
-            <!-- Left Side: Image -->
-            <div class="flex-1">
-                <img src="images/PD.jpg" alt="Potholes and Damaged Roads" class="w-full h-auto rounded-lg shadow-lg">
-            </div>
 
-            <!-- Right Side: Content -->
-            <div class="flex-1 text-center md:text-left">
-                <h3 class="text-2xl font-bold text-[#4E6C50]">Potholes and Damaged Roads</h3>
-                <p class="mt-4 text-gray-600">Potholes are not only an inconvenience but also a serious risk to vehicles and pedestrians. Repairing roads and ensuring better road maintenance is essential for public safety.</p>
-            </div>
+
+
+<!-- Traffic Congestion -->
+<section class="py-24 flex items-center justify-center mt-20 relative">
+    <div class="w-full md:w-[90%] flex flex-col md:flex-row-reverse items-center gap-12 ml-0 md:ml-[-20%]">        <!-- Right Side: Image -->
+        <div class="flex-1 relative max-w-2xl">
+            <img src="images/TC.jpg" alt="Traffic Congestion" 
+                class="w-full h-80 md:h-[28rem] rounded-2xl shadow-xl object-cover">
         </div>
-    </section>
 
-    <!-- Footer Section -->
-    <footer class="primary-bg text-white py-4">
-        <div class="container mx-auto text-center">
-            <p>&copy; 2025 Smart City Hub. All rights reserved.</p>
+        <!-- Left Side: Content Card (Overlapping) -->
+        <div class="absolute md:right-[55%] bg-white p-8 rounded-2xl shadow-xl max-w-md -mt-16">
+            <h2 class="text-xl md:text-2xl font-bold text-gray-800 text-center">Traffic Congestion</h2>
+            <p class="mt-4 text-lg text-gray-600 leading-relaxed text-center">
+                The city is plagued by traffic congestion, especially during peak hours. Implementing better traffic management and expanding public transportation can help alleviate this issue.
+            </p>
         </div>
-    </footer>
+    </div>
+</section>
+
+<!-- Potholes and Damaged Roads -->
+<section class="py-24 flex items-center justify-center mt-20 relative">
+    <div class="w-full md:w-[90%] flex flex-col md:flex-row-reverse items-center gap-12 ml-0 md:ml-[-70%]">
+        <!-- Left Side: Large Image -->
+        <div class="flex-1 relative max-w-2xl">
+            <img src="images/PD.jpg" alt="Potholes and Damaged Roads"  
+                class="w-full h-80 md:h-[28rem] rounded-2xl shadow-xl object-cover">
+        </div>
+
+        <!-- Right Side: Content Card (Overlapping) -->
+        <div class="absolute md:left-[55%] bg-white p-8 rounded-2xl shadow-xl max-w-md -mt-16">            <h2 class="text-xl md:text-2xl font-bold text-gray-800 text-center">Potholes and Damaged Roads</h2>
+            <p class="mt-4 text-lg text-gray-600 leading-relaxed text-center">
+                Potholes are not only an inconvenience but also a serious risk to vehicles and pedestrians. Repairing roads and ensuring better road maintenance is essential for public safety.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Footer Section -->
+<footer class="primary-bg text-white py-6 mt-20">
+    <div class="container mx-auto text-center">
+        <p class="text-lg">&copy; 2025 Smart City Hub. All rights reserved.</p>
+    </div>
+</footer>
+
 
     <script>
         // Toggle mobile navigation menu
