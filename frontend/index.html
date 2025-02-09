@@ -6,73 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart City Platform</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .primary-bg { background: #7c01ff; }
+        .pri-bg { background-image: url('https://mangalurusmartcity.net/contents/64811.3154176675-1365152.18530019.jpg');
+        background-size: cover; /* Ensures the image covers the entire element */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents repeating */
+    }
+        .card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+        .btn { transition: all 0.3s ease-in-out; background: #68738582; }
+        .btn:hover { transform: scale(1.05); }
+    </style>
 </head>
 
-<body class="bg-[#FAF3E0]">
+<body class="bg-gray-100">
 
     <!-- Navigation Bar -->
-<nav class="bg-[#2C2C2C] p-4 shadow-lg">
-    <div class="container mx-auto flex justify-between items-center">
-      <!-- Logo -->
-      <a href="#" class="text-[#D4A373] text-xl font-semibold hover:text-white transition">Smart City Hub</a>
-      
-      <!-- Desktop Navigation -->
-      <div class="hidden md:flex space-x-6">
-        <a href="#home" class="nav-link text-white hover:text-[#D4A373] transition">Home</a>
-        <a href="#data" class="nav-link text-white hover:text-[#D4A373] transition">Data</a>
-        <a href="#cities" class="nav-link text-white hover:text-[#D4A373] transition">Cities</a>
-        <a href="#documents" class="nav-link text-white hover:text-[#D4A373] transition">Documents</a>
-        <a href="#faq" class="nav-link text-white hover:text-[#D4A373] transition">FAQ</a>
-      </div>
-      
-      <!-- Mobile Hamburger Menu -->
-      <div class="md:hidden">
-        <button class="text-white" id="hamburger-menu">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-        </button>
-      </div>
-  
-      <!-- Sign In/Sign Up Buttons -->
-      <div class="flex space-x-2">
-        <a href="SignUp.html" class="bg-white text-blue-900 px-4 py-2 rounded-md font-semibold hover:bg-gray-200 transition">Sign Up</a>
-        <a href="SignIn.html" class="bg-white text-blue-900 px-4 py-2 rounded-md font-semibold hover:bg-gray-200 transition">Sign In</a>
-      </div>
-    </div>
-  
-    <!-- Mobile Navigation (hidden by default) -->
-    <div class="md:hidden flex flex-col space-y-4 mt-4 bg-[#2C2C2C] p-4" id="mobile-nav">
-      <a href="#home" class="nav-link text-white hover:text-[#D4A373] transition">Home</a>
-      <a href="#data" class="nav-link text-white hover:text-[#D4A373] transition">Data</a>
-      <a href="#cities" class="nav-link text-white hover:text-[#D4A373] transition">Cities</a>
-      <a href="#documents" class="nav-link text-white hover:text-[#D4A373] transition">Documents</a>
-      <a href="#faq" class="nav-link text-white hover:text-[#D4A373] transition">FAQ</a>
-    </div>
-  </nav>
-  
-  <!-- Main Content Sections -->
-  <section id="home" class="section">
-    <!-- Home content goes here -->
-  </section>
-  <section id="data" class="section">
-    <!-- Data content goes here -->
-  </section>
-  <section id="cities" class="section">
-    <!-- Cities content goes here -->
-  </section>
-  <section id="documents" class="section">
-    <!-- Documents content goes here -->
-  </section>
-  <section id="faq" class="section">
-    <!-- FAQ content goes here -->
-  </section>
-  
-  
+    <nav class="primary-bg p-4 flex justify-between items-center shadow-md rounded-lg text-white">
+        <h1 class="text-2xl font-semibold">Smart City Hub</h1>
+        <div class="flex items-center space-x-6">
+            <a href="#" class="hover:underline">Discover</a>
+            <a href="#" class="hover:underline">FAQ</a>
+            <div class="flex space-x-2">
+                <a href="SignUp.html" class="bg-white text-blue-900 px-4 py-2 rounded-md font-semibold hover:bg-gray-200 transition">Sign Up</a>
+                <a href="SignIn.html" class="bg-white text-blue-900 px-4 py-2 rounded-md font-semibold hover:bg-gray-200 transition">Sign In</a>
+            </div>
+        </div>
+    </nav>
 
     <!-- Hero Section -->
-    <section class="bg-[#D4A373] text-white py-16">
+    <section class="pri-bg text-white py-16">
         <div class="container mx-auto text-center">
             <h2 class="text-4xl font-bold">Open Data Platform: India Smart Cities</h2>
             <p class="mt-4 text-lg">Empowering Cities through Open Data</p>
@@ -121,17 +85,17 @@
         <div class="container mx-auto text-center">
             <h2 class="text-3xl font-bold text-[#2C2C2C]">Features</h2>
             <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition">
+                <div class="card p-6 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition">
                     <img src="images/complaint-icon.png" alt="Complaint Registration" class="w-20 h-20 mx-auto mb-4">
                     <h3 class="text-xl font-semibold text-[#4E6C50]">Easy Complaint Registration</h3>
                     <p class="mt-4 text-gray-600">Submit complaints with ease using our intuitive platform.</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition">
+                <div class="card p-6 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition">
                     <img src="images/track-progress-icon.png" alt="Track Progress" class="w-20 h-20 mx-auto mb-4">
                     <h3 class="text-xl font-semibold text-[#4E6C50]">Track Progress</h3>
                     <p class="mt-4 text-gray-600">Track the status of your complaint and get updates in real time.</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition">
+                <div class="card p-6 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition">
                     <img src="images/community-engagement-icon.png" alt="Community Engagement" class="w-20 h-20 mx-auto mb-4">
                     <h3 class="text-xl font-semibold text-[#4E6C50]">Community Engagement</h3>
                     <p class="mt-4 text-gray-600">Engage with local authorities and community leaders to resolve issues quickly.</p>
@@ -140,60 +104,61 @@
         </div>
     </section>
 
-  <!-- Example 1: Waste Management -->
-<section class="py-16">
-    <div class="container mx-auto flex flex-col md:flex-row items-center gap-8">
-        <!-- Left Side: Image -->
-        <div class="flex-1">
-            <img src="images/WM.jpg" alt="Waste Management Issues" class="w-full h-auto rounded-lg shadow-lg">
-        </div>
+    <!-- Example 1: Waste Management -->
+    <section class="py-16">
+        <div class="container mx-auto flex flex-col md:flex-row items-center gap-8">
+            <!-- Left Side: Image -->
+            <div class="flex-1">
+                <img src="images/WM.jpg" alt="Waste Management Issues" class="w-full h-auto rounded-lg shadow-lg">
+            </div>
 
-        <!-- Right Side: Content -->
-        <div class="flex-1 text-center md:text-left">
-            <h3 class="text-2xl font-bold text-[#4E6C50]">Waste Management Issues</h3>
-            <p class="mt-4 text-gray-600">The city faces challenges with waste collection, improper disposal, and inadequate recycling facilities. Addressing these issues is crucial for maintaining a clean and sustainable environment.</p>
+            <!-- Right Side: Content -->
+            <div class="flex-1 text-center md:text-left">
+                <h3 class="text-2xl font-bold text-[#4E6C50]">Waste Management Issues</h3>
+                <p class="mt-4 text-gray-600">The city faces challenges with waste collection, improper disposal, and inadequate recycling facilities. Addressing these issues is crucial for maintaining a clean and sustainable environment.</p>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Example 2: Traffic Congestion -->
-<section class="py-16">
-    <div class="container mx-auto flex flex-col md:flex-row-reverse items-center gap-8">
-        <!-- Right Side: Image -->
-        <div class="flex-1">
-            <img src="images/TC.jpg" alt="Traffic Congestion" class="w-full h-auto rounded-lg shadow-lg">
-        </div>
+    <!-- Example 2: Traffic Congestion -->
+    <section class="py-16">
+        <div class="container mx-auto flex flex-col md:flex-row-reverse items-center gap-8">
+            <!-- Right Side: Image -->
+            <div class="flex-1">
+                <img src="images/TC.jpg" alt="Traffic Congestion" class="w-full h-auto rounded-lg shadow-lg">
+            </div>
 
-        <!-- Left Side: Content -->
-        <div class="flex-1 text-center md:text-left">
-            <h3 class="text-2xl font-bold text-[#4E6C50]">Traffic Congestion</h3>
-            <p class="mt-4 text-gray-600">The city is plagued by traffic congestion, especially during peak hours. Implementing better traffic management and expanding public transportation can help alleviate this issue.</p>
+            <!-- Left Side: Content -->
+            <div class="flex-1 text-center md:text-left">
+                <h3 class="text-2xl font-bold text-[#4E6C50]">Traffic Congestion</h3>
+                <p class="mt-4 text-gray-600">The city is plagued by traffic congestion, especially during peak hours. Implementing better traffic management and expanding public transportation can help alleviate this issue.</p>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Example 3: Potholes and Damaged Roads -->
-<section class="py-16">
-    <div class="container mx-auto flex flex-col md:flex-row items-center gap-8">
-        <!-- Left Side: Image -->
-        <div class="flex-1">
-            <img src="images/PD.jpg" alt="Potholes and Damaged Roads" class="w-full h-auto rounded-lg shadow-lg">
-        </div>
+    <!-- Example 3: Potholes and Damaged Roads -->
+    <section class="py-16">
+        <div class="container mx-auto flex flex-col md:flex-row items-center gap-8">
+            <!-- Left Side: Image -->
+            <div class="flex-1">
+                <img src="images/PD.jpg" alt="Potholes and Damaged Roads" class="w-full h-auto rounded-lg shadow-lg">
+            </div>
 
-        <!-- Right Side: Content -->
-        <div class="flex-1 text-center md:text-left">
-            <h3 class="text-2xl font-bold text-[#4E6C50]">Potholes and Damaged Roads</h3>
-            <p class="mt-4 text-gray-600">Potholes are not only an inconvenience but also a serious risk to vehicles and pedestrians. Repairing roads and ensuring better road maintenance is essential for public safety.</p>
+            <!-- Right Side: Content -->
+            <div class="flex-1 text-center md:text-left">
+                <h3 class="text-2xl font-bold text-[#4E6C50]">Potholes and Damaged Roads</h3>
+                <p class="mt-4 text-gray-600">Potholes are not only an inconvenience but also a serious risk to vehicles and pedestrians. Repairing roads and ensuring better road maintenance is essential for public safety.</p>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <!-- Footer Section -->
-    <footer class="bg-[#2C2C2C] text-white py-4">
+    <footer class="primary-bg text-white py-4">
         <div class="container mx-auto text-center">
             <p>&copy; 2025 Smart City Hub. All rights reserved.</p>
         </div>
     </footer>
+
     <script>
         // Toggle mobile navigation menu
         const hamburgerMenu = document.getElementById('hamburger-menu');

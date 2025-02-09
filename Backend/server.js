@@ -6,7 +6,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("./models/User");
 
-
 dotenv.config();
 const app = express();
 app.use(cors());
@@ -129,26 +128,6 @@ app.get("/api/complaints-per-month", async (req, res) => {
 });
 
 
-
-// Get User Details 
-app.get("/api/user", async (req, res) => {
-  try {
-    const token = req.headers.authorization;
-    if (!token) return res.status(401).json({ error: "Unauthorized" });
-
-    const decoded = jwt.verify(token, SECRET_KEY);
-    const user = await User.findById(decoded.userId).select("-password");
-    
-    if (!user) return res.status(404).json({ error: "User not found" });
-
-    res.status(200).json(user);
-  } catch (error) {
-    res.status(500).json({ error: "Error fetching user details", details: error.message });
-  }
-});
-
-
-
 const complaintSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true },
@@ -222,6 +201,28 @@ app.get("/api/complaints/:complaintId/status", async (req, res) => {
     res.status(500).json({ error: "Server Error", details: error.message });
   }
 });
+
+app.get("/api/get-user", async (req, res) => {
+  try {
+    const { email } = req.query;
+
+    if (!email) {
+      return res.status(400).json({ success: false, error: "Email is required" });
+    }
+
+    const user = await User.findOne({ email }).select("name email"); // Fetch only name and email
+
+    if (!user) {
+      return res.status(404).json({ success: false, error: "User not found" });
+    }
+
+    res.json({ success: true, user });
+  } catch (error) {
+    console.error("Error fetching user details:", error);
+    res.status(500).json({ success: false, error: "Internal Server Error" });
+  }
+});
+
 
 const feedbackRoutes = require("./routes/feedback");
 app.use("/api", feedbackRoutes);

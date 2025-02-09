@@ -45,14 +45,14 @@
         <!-- User Profile Section -->
         <div class="card p-6 mb-6">
             <h2 class="text-2xl font-semibold mb-4">User Profile</h2>
-            <p><strong>Name:</strong> John Doe</p>
-            <p><strong>Email:</strong> john.doe@example.com</p>
-            <p><strong>Contact:</strong> +1234567890</p>
-            <div class="mt-4">
-                <button class="button-28">Edit Profile</button>
-                <button class="button-28">Change Password</button>
+                <p><strong>Name:</strong> <span id="userName">Loading...</span></p>
+                <p><strong>Email:</strong> <span id="userEmail">Loading...</span></p>
+                <p><strong>Contact:</strong> <span id="userPhone">Loading...</span></p>
+                <div class="mt-4">
+                    <button class="button-28">Edit Profile</button>
+                    <button class="button-28">Change Password</button>
+                </div>
             </div>
-        </div>
 
         <!-- Complaint Overview -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
@@ -109,101 +109,122 @@
         
         
 
-        <!-- Feedback Section -->
-        <div class="card p-6 mb-6">
-            <h2 class="text-2xl font-semibold mb-4">Feedback</h2>
-            <textarea class="w-full p-2 border rounded" rows="3" placeholder="Share your feedback..."></textarea>
-            <button class="button-28">Submit Feedback</button>
-        </div>
-    </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", async function() {
-            const userEmail = localStorage.getItem("userEmail"); // Get email from local storage
-        
-            if (!userEmail) {
-                console.error("User email not found in local storage.");
-                return;
-            }
-        
-            try {
-                // Fetch complaint statistics for the logged-in user
-                const responseStatus = await fetch(`http://localhost:5000/api/complaint-stats?email=${userEmail}`);
-                const responseMonthly = await fetch(`http://localhost:5000/api/complaints-per-month?email=${userEmail}`);
-        
-                const stats = await responseStatus.json();
-                const monthlyStats = await responseMonthly.json();
-        
-                // Data for Doughnut Chart (Complaint Status)
-                const labelsStatus = stats.map(s => s.status);
-                const dataStatus = stats.map(s => s.count);
-        
-                // Data for Bar Chart (Complaints per Month)
-                const labelsMonthly = monthlyStats.map(m => m.month);
-                const dataMonthly = monthlyStats.map(m => m.count);
-        
-                // Render Doughnut Chart
-                new Chart(document.getElementById("complaintChart").getContext("2d"), {
-                    type: "doughnut",
-                    data: {
-                        labels: labelsStatus,
-                        datasets: [{
-                            label: "Complaint Status",
-                            data: dataStatus,
-                            backgroundColor: ["#7c01ff", "#a855f7", "#d8b4fe"], // Purple Shades
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: { position: "bottom", labels: { color: "#7c01ff" } }
-                        }
-                    }
-                });
-        
-                // Render Bar Chart
-                new Chart(document.getElementById("monthlyComplaintsChart").getContext("2d"), {
-                    type: "bar",
-                    data: {
-                        labels: labelsMonthly,
-                        datasets: [{
-                            label: "Complaints per Month",
-                            data: dataMonthly,
-                            backgroundColor: "#7c01ff", // Purple color
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            y: { beginAtZero: true, ticks: { color: "#7c01ff" } },
-                            x: { ticks: { color: "#7c01ff" } }
-                        },
-                        plugins: {
-                            legend: { display: false }
-                        }
-                    }
-                });
-        
-            } catch (error) {
-                console.error("Error loading analytics:", error);
+<!-- Feedback Section -->
+<div class="card p-6 mb-6">
+    <h2 class="text-2xl font-semibold mb-4">Feedback</h2>
+    <textarea id="feedbackInput" class="w-full p-2 border rounded" rows="3" placeholder="Share your feedback..."></textarea>
+    <button id="submitFeedback" class="button-28">Submit Feedback</button>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", async function() {
+    const userEmail = localStorage.getItem("userEmail"); // Ensure correct email key
+
+    if (!userEmail) {
+        console.error("User email not found in local storage.");
+        return;
+    }
+
+    try {
+        // Fetch complaint statistics for the logged-in user
+        const responseStatus = await fetch(`http://localhost:5000/api/complaint-stats?email=${userEmail}`);
+        const responseMonthly = await fetch(`http://localhost:5000/api/complaints-per-month?email=${userEmail}`);
+
+        const stats = await responseStatus.json();
+        const monthlyStats = await responseMonthly.json();
+
+        // Data for Doughnut Chart (Complaint Status)
+        const labelsStatus = stats.map(s => s.status);
+        const dataStatus = stats.map(s => s.count);
+
+        // Data for Bar Chart (Complaints per Month)
+        const labelsMonthly = monthlyStats.map(m => m.month);
+        const dataMonthly = monthlyStats.map(m => m.count);
+
+        // Render Doughnut Chart
+        new Chart(document.getElementById("complaintChart").getContext("2d"), {
+            type: "doughnut",
+            data: {
+                labels: labelsStatus,
+                datasets: [{
+                    label: "Complaint Status",
+                    data: dataStatus,
+                    backgroundColor: ["#7c01ff", "#a855f7", "#d8b4fe"], // Purple Shades
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: "bottom", labels: { color: "#7c01ff" } }
+                }
             }
         });
 
-        document.addEventListener("DOMContentLoaded", function () {
-    const feedbackInput = document.querySelector("textarea");
-    const submitButton = document.querySelector(".button-28");
+        // Render Bar Chart
+        new Chart(document.getElementById("monthlyComplaintsChart").getContext("2d"), {
+            type: "bar",
+            data: {
+                labels: labelsMonthly,
+                datasets: [{
+                    label: "Complaints per Month",
+                    data: dataMonthly,
+                    backgroundColor: "#7c01ff", // Purple color
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true, ticks: { color: "#7c01ff" } },
+                    x: { ticks: { color: "#7c01ff" } }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+
+    } catch (error) {
+        console.error("Error loading analytics:", error);
+    }
+
+    // Fetch User Profile
+    async function fetchUserProfile() {
+        try {
+            const response = await fetch(`http://localhost:5000/api/get-user?email=${userEmail}`);
+            const data = await response.json();
+
+            if (data.success) {
+                document.getElementById("userName").textContent = data.user.name;
+                document.getElementById("userEmail").textContent = data.user.email;
+                document.getElementById("userPhone").textContent = data.user.phone || "N/A";
+            } else {
+                document.getElementById("userName").textContent = "User not found";
+            }
+        } catch (error) {
+            console.error("Error fetching user:", error);
+            document.getElementById("userName").textContent = "Error fetching data";
+        }
+    }
+    
+    fetchUserProfile();
+
+    // Feedback API Call
+    const feedbackInput = document.getElementById("feedbackInput");
+    const submitButton = document.getElementById("submitFeedback");
 
     submitButton.addEventListener("click", async () => {
-        const userEmail = localStorage.getItem("userEmail"); // Get user email from local storage
         const feedbackMessage = feedbackInput.value.trim();
 
-        if (!userEmail || !feedbackMessage) {
+        if (!feedbackMessage) {
             alert("Please enter your feedback!");
             return;
         }
+
+        submitButton.disabled = true; // Prevent multiple submissions
 
         try {
             const response = await fetch("http://localhost:5000/api/submit-feedback", {
@@ -219,14 +240,20 @@
                 alert("Feedback submitted successfully!");
                 feedbackInput.value = ""; // Clear input
             } else {
-                alert(data.error);
+                alert("Error: " + data.error);
             }
         } catch (error) {
             console.error("Error submitting feedback:", error);
+            alert("Failed to submit feedback. Please try again later.");
+        } finally {
+            submitButton.disabled = false; // Re-enable button
         }
     });
 });
-        </script>
+
+
+</script>
+
         
         
         
