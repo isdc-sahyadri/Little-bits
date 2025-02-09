@@ -16,10 +16,12 @@
         }
         .btn-primary-custom {
             background-color: #7c01ff;
+            border-color: #7c01ff;
             color: white;
         }
         .btn-primary-custom:hover {
             background-color: #6601cc; /* Slightly darker purple */
+            border-color: #6601cc;
             color: white;
         }
     </style>
@@ -53,7 +55,7 @@
                         <td>John Doe</td>
                         <td><span class="badge badge-warning">Pending</span></td>
                         <td>
-                            <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#complaintModal" onclick="loadComplaintInfo(1)">View More</button>
+                            <button class="btn btn-primary-custom btn-sm" data-toggle="modal" data-target="#complaintModal" onclick="loadComplaintInfo(1)">View More</button>
                         </td>
                     </tr>
                     <tr>
@@ -61,7 +63,7 @@
                         <td>Jane Smith</td>
                         <td><span class="badge badge-danger">Unresolved</span></td>
                         <td>
-                            <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#complaintModal" onclick="loadComplaintInfo(2)">View More</button>
+                            <button class="btn btn-primary-custom btn-sm" data-toggle="modal" data-target="#complaintModal" onclick="loadComplaintInfo(2)">View More</button>
                         </td>
                     </tr>
                     <tr>
@@ -69,7 +71,7 @@
                         <td>Emily Johnson</td>
                         <td><span class="badge badge-success">Resolved</span></td>
                         <td>
-                            <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#complaintModal" onclick="loadComplaintInfo(3)">View More</button>
+                            <button class="btn btn-primary-custom btn-sm" data-toggle="modal" data-target="#complaintModal" onclick="loadComplaintInfo(3)">View More</button>
                         </td>
                     </tr>
                 </tbody>
@@ -107,14 +109,14 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="updateComplaintStatus()">Save Changes</button>
+                    <button type="button" class="btn btn-primary-custom" onclick="updateComplaintStatus()">Save Changes</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
@@ -122,12 +124,10 @@
         // Function to load complaint details into modal
         function loadComplaintInfo(complaintId) {
             let complaintDetails = '';
-            let complaintName = '';
             let complaintStatus = '';
 
             // Simulating fetching complaint data
             if (complaintId === 1) {
-                complaintName = 'John Doe';
                 complaintStatus = 'Pending';
                 complaintDetails = `
                     <p><strong>Complaint ID:</strong> 001</p>
@@ -135,7 +135,6 @@
                     <p><strong>Status:</strong> Pending</p>
                 `;
             } else if (complaintId === 2) {
-                complaintName = 'Jane Smith';
                 complaintStatus = 'Unresolved';
                 complaintDetails = `
                     <p><strong>Complaint ID:</strong> 002</p>
@@ -143,7 +142,6 @@
                     <p><strong>Status:</strong> Unresolved</p>
                 `;
             } else if (complaintId === 3) {
-                complaintName = 'Emily Johnson';
                 complaintStatus = 'Resolved';
                 complaintDetails = `
                     <p><strong>Complaint ID:</strong> 003</p>
