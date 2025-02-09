@@ -169,10 +169,10 @@ app.post("/api/complaints", async (req, res) => {
   }
 });
 
-// Get all complaints (for Complaint List Table)
 app.get("/api/all-complaints", async (req, res) => {
   try {
-    const complaints = await Complaint.find({}, "complaintId name status");
+    const complaints = await Complaint.find({}, "complaintId name email complaint location status imageUrl");
+
     res.json(complaints);
   } catch (error) {
     res.status(500).json({ error: "Server Error", details: error.message });
@@ -183,13 +183,15 @@ app.get("/api/all-complaints", async (req, res) => {
 
 
 
-// Update complaint status
-app.put("/api/complaints/:id", async (req, res) => {
+
+
+// Update complaint status using complaintId
+app.put("/api/complaints/:complaintId", async (req, res) => {
   try {
     const { status } = req.body;
 
     const updatedComplaint = await Complaint.findOneAndUpdate(
-      { complaintId: req.params.id },
+      { complaintId: req.params.complaintId }, // Query using complaintId
       { status },
       { new: true }
     );
@@ -202,21 +204,19 @@ app.put("/api/complaints/:id", async (req, res) => {
   }
 });
 
+// Get complaint details using complaintId
+// app.get("/api/complaints/:complaintId", async (req, res) => {
+//   try {
+//     const complaint = await Complaint.findOne({ complaintId: req.params.complaintId }); 
 
+//     if (!complaint) return res.status(404).json({ error: "Complaint Not Found" });
 
+//     res.json(complaint);
+//   } catch (error) {
+//     res.status(500).json({ error: "Server Error", details: error.message });
+//   }
+// });
 
-// Get complaint details by ID
-app.get("/api/complaints/:id", async (req, res) => {
-  try {
-    const complaint = await Complaint.findOne({ complaintId: req.params.id });
-
-    if (!complaint) return res.status(404).json({ error: "Complaint Not Found" });
-
-    res.json(complaint);
-  } catch (error) {
-    res.status(500).json({ error: "Server Error", details: error.message });
-  }
-});
 
 
 app.get("/api/complaints/:complaintId", async (req, res) => {
