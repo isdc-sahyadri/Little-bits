@@ -137,7 +137,8 @@ const complaintSchema = new mongoose.Schema({
   complaint: { type: String, required: true },
   complaintId: { type: String, unique: true, required: true },
   status: { type: String, default: "Pending" }, 
-  date: { type: Date, default: Date.now }
+  date: { type: Date, default: Date.now },
+  imageUrl: { type: String } // ✅ New field for storing image URL
 });
 
 const Complaint = mongoose.models.Complaint || mongoose.model("Complaint", complaintSchema);
@@ -167,6 +168,82 @@ app.post("/api/complaints", async (req, res) => {
     });
   } catch (error) {
     console.error("Error saving complaint:", error.message);
+    res.status(500).json({ error: "Server Error", details: error.message });
+  }
+});
+
+app.get("/api/all-complaints", async (req, res) => {
+  try {
+    const complaints = await Complaint.find({}, "complaintId name email complaint location status imageUrl");
+
+    res.json(complaints);
+  } catch (error) {
+    res.status(500).json({ error: "Server Error", details: error.message });
+  }
+});
+
+
+
+
+
+
+
+// Update complaint status using complaintId
+app.put("/api/complaints/:complaintId", async (req, res) => {
+  try {
+    const { status } = req.body;
+
+    const updatedComplaint = await Complaint.findOneAndUpdate(
+      { complaintId: req.params.complaintId }, // Query using complaintId
+      { status },
+      { new: true }
+    );
+
+    if (!updatedComplaint) return res.status(404).json({ error: "Complaint Not Found" });
+
+    res.json({ message: "Complaint Updated", updatedComplaint });
+  } catch (error) {
+    res.status(500).json({ error: "Server Error", details: error.message });
+  }
+});
+
+// Get complaint details using complaintId
+// app.get("/api/complaints/:complaintId", async (req, res) => {
+//   try {
+//     const complaint = await Complaint.findOne({ complaintId: req.params.complaintId }); 
+
+//     if (!complaint) return res.status(404).json({ error: "Complaint Not Found" });
+
+//     res.json(complaint);
+//   } catch (error) {
+//     res.status(500).json({ error: "Server Error", details: error.message });
+//   }
+// });
+
+
+
+app.get("/api/complaints/:complaintId", async (req, res) => {
+  try {
+    const { complaintId } = req.params;
+
+    // Find complaint by ID
+    const complaint = await Complaint.findOne({ complaintId });
+
+    if (!complaint) {
+      return res.status(404).json({ error: "Complaint not found" });
+    }
+
+    res.status(200).json({
+      name: complaint.name,
+      email: complaint.email,
+      complaint: complaint.complaint,
+      complaintId: complaint.complaintId,
+      status: complaint.status,
+      date: complaint.date,
+      imageUrl: complaint.imageUrl ? `http://localhost:5000${complaint.imageUrl}` : null,
+    });
+  } catch (error) {
+    console.error("Error fetching complaint:", error.message);
     res.status(500).json({ error: "Server Error", details: error.message });
   }
 });
@@ -202,6 +279,47 @@ app.get("/api/complaints/:complaintId/status", async (req, res) => {
   } catch (error) {
     console.error("Error fetching complaint status:", error.message);
     res.status(500).json({ error: "Server Error", details: error.message });
+  }
+});
+
+// API to fetch complaint count based on user email
+app.get('/api/complaints/count', async (req, res) => {
+  try {
+    const email = req.query.email?.trim(); // Trim whitespace
+
+    if (!email) {
+      console.error("❌ Email parameter is missing!");
+      return res.status(400).json({ error: "Email is required" });
+    }
+
+    console.log(`🔍 Searching complaints for email: '${email}'`);
+
+    // Debugging Step: Print before querying MongoDB
+    console.log("🛠 Checking database connection...");
+
+    // Case-insensitive search for email
+    const complaints = await Complaint.find({ email: { $regex: new RegExp(`^${email}$`, "i") } });
+
+    // Debugging Step: Print after MongoDB query
+    console.log(`📝 MongoDB Query Result:`, complaints);
+
+    if (complaints.length === 0) {
+      console.warn("⚠️ No complaints found for this email.");
+      return res.status(404).json({ error: "No complaints found for this email" });
+    }
+
+    // Count complaints
+    const total = complaints.length;
+    const pending = complaints.filter(c => c.status === "Pending").length;
+    const resolved = complaints.filter(c => c.status === "Resolved").length;
+
+    console.log(`📊 Total: ${total}, Pending: ${pending}, Resolved: ${resolved}`);
+
+    res.json({ total, pending, resolved });
+
+  } catch (error) {
+    console.error("🔥 Internal Server Error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 

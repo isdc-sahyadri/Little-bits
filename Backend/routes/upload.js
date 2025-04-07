@@ -9,7 +9,14 @@ const { v4: uuidv4 } = require("uuid");
 dotenv.config();
 const router = express.Router();
 
-// Cloudinary Configuration
+// Debug: Ensure dotenv is loading env variables
+console.log("Cloudinary Config:", {
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY ? "Loaded" : "Missing",
+  api_secret: process.env.CLOUDINARY_API_SECRET ? "Loaded" : "Missing",
+});
+
+// Cloudinary Config
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -21,32 +28,42 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: "complaints",
-    format: async () => "png",
-    public_id: () => Date.now().toString(),
+    format: async (req, file) => "png", // Change format if needed
+    public_id: (req, file) => Date.now().toString(), // Use a unique ID instead of original name
   },
 });
 const upload = multer({ storage });
+console.log("✅ Complaint Upload Route Loaded!");
+
+// Debug: Ensure route is registered
+console.log("Registering POST /api/complaints/upload");
 
 // Complaint Submission Route
 router.post("/upload", upload.single("image"), async (req, res) => {
   console.log("Received a POST request to /api/complaints/upload");
 
   const { name, email, contact, address, complaint } = req.body;
-  const imageUrl = req.file?.secure_url || req.file?.path || "";
+  const imageUrl = req.file?.path || req.file?.secure_url || "";
 
+  // Validate required fields
   if (!name || !email || !contact || !address || !complaint) {
     return res.status(400).json({ message: "All fields are required!" });
   }
 
   try {
-    // Check for duplicate complaint
-    const existingComplaint = await Complaint.findOne({ complaint, email });
-    if (existingComplaint) {
-      return res.status(400).json({ error: "Complaint already submitted!" });
-    }
+    console.log("Received a POST request to /api/complaints/upload");
+    console.log("Request Body:", req.body);
 
-    // Generate unique ID for complaint
-    const complaintId = uuidv4();
+    const { name, email, contact, address, complaint, imageUrl } = req.body;
+
+
+
+     // Check if this complaint already exists in the session
+    if (req.session.lastComplaint === complaint) {
+      return res.status(400).json({ error: "Complaint already submitted in this session!" });
+    }
+    console.log("Saving complaint to MongoDB...");
+    const complaintId = uuidv4(); // Generates a unique complaint ID
 
     // Save to MongoDB
     const newComplaint = new Complaint({
@@ -56,10 +73,19 @@ router.post("/upload", upload.single("image"), async (req, res) => {
       contact,
       address,
       complaint,
-      imageUrl,
+      imageUrl, // Storing the image URL
+      status: "Pending",
     });
 
     await newComplaint.save();
+
+
+    // Store the last complaint in the session to prevent duplicate submissions
+    req.session.lastComplaint = complaint;
+    console.log("Complaint saved successfully:", newComplaint);
+
+
+    
     res.status(201).json({ message: "Complaint submitted successfully!", complaint: newComplaint });
   } catch (error) {
     console.error("Error saving complaint:", error);
