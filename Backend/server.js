@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("./models/User");
+const connectDB = require("./config/database");
+
 
 dotenv.config();
 const app = express();
@@ -42,6 +44,7 @@ app.post("/api/signup", async (req, res) => {
 
     res.status(201).json({ message: "User registered successfully!" });
   } catch (error) {
+    console.log(error)
     res.status(500).json({ error: "Signup failed", details: error.message });
   }
 });
@@ -238,4 +241,8 @@ mongoose
   .catch(err => console.error("MongoDB Connection Error:", err));
 
 const PORT = process.env.PORT || 5000;
+app.get("/", (req, res) => {
+  res.send("Server is running successfully!");
+});
+
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -10,6 +10,6 @@ const ComplaintSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-const Complaint = mongoose.models.Complaint || mongoose.model("Complaint", complaintSchema);
+const Complaint = mongoose.models.Complaint || mongoose.model("Complaint", ComplaintSchema);
 
 module.exports = Complaint;
